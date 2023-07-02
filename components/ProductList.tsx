@@ -36,6 +36,7 @@ const categories = [
   {
     id: "7",
     name: "hamburger",
+    url: "https://picsum.photos/700"
   },
   {
     id: "8",
