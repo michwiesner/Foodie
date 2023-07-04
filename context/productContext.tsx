@@ -35,11 +35,10 @@ const ProductProvider = ({ children }: any) => {
           priceTotal: totalProductPrice + (action === "plus" ? +price : -price),
           quantity: productQuantity + (action === "plus" ? +1 : -1),
         };
-        console.log(updatedMeal, totalProductPrice);
         cartCopy.products[mealIndex] = updatedMeal;
         cartCopy.total = cartCopy.total + (action === "plus" ? +price : -price);
       }
-      console.log(cartCopy);
+
       setCart({ ...cartCopy });
     } else {
       setCart({

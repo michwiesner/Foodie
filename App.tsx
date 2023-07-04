@@ -7,6 +7,7 @@ import CartDetails from "./views/CartDetails";
 import PaymentMessage from "./views/PaymentMessage";
 import AppBar from "./components/AppBar";
 import ProductProvider from "./context/productContext";
+import Address from "./views/Address";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ const App = () => (
         >
           <Stack.Screen name="home" component={Home} />
           <Stack.Screen name="cart" component={CartDetails} />
+          <Stack.Screen name="address" component={Address} />
           <Stack.Screen name="payment" component={PaymentMessage} />
         </Stack.Navigator>
       </NavigationContainer>

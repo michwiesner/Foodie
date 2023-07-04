@@ -4,7 +4,7 @@ import CardItemList from "../components/CardItemList";
 import { Button } from "react-native-paper";
 import { ProductContext } from "../context/productContext";
 
-const CartDetails = () => {
+const CartDetails = ({ navigation }) => {
   const { cart } = useContext(ProductContext);
 
   return (
@@ -23,7 +23,9 @@ const CartDetails = () => {
           <Text style={{ fontSize: 20, fontWeight: "700" }}>Total</Text>
           <Text style={{ fontSize: 20, fontWeight: "700" }}>${cart.total}</Text>
         </View>
-        <Button mode="contained">Go to checkout</Button>
+        <Button mode="contained" onPress={() => navigation.navigate("address")}>
+          Go to checkout
+        </Button>
       </View>
     </View>
   );
