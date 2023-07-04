@@ -1,84 +1,46 @@
-import { View, Text, FlatList } from "react-native";
-import React from "react";
+import { FlatList } from "react-native";
+import React, { useState, useContext, useEffect } from "react";
 import ProductCard from "./ProductCard";
+import { ProductContext } from "../context/productContext";
+import { fetchData } from "../helper/dataProvider";
 
-const categories = [
-  {
-    id: "1",
-    name: "hamburger",
-    url: "https://picsum.photos/700"
-  },
-  {
-    id: "2",
-    name: "pasta",
-    url: "https://picsum.photos/700"
-  },
-  {
-    id: "3",
-    name: "pizza",
-    url: "https://picsum.photos/700"
-  },
-  {
-    id: "4",
-    name: "seafood",
-    url: "https://picsum.photos/700"
-  },
-  {
-    id: "5",
-    name: "hamburger",
-    url: "https://picsum.photos/700"
-  },
-  {
-    id: "6",
-    name: "hamburger",
-    url: "https://picsum.photos/700"
-  },
-  {
-    id: "7",
-    name: "hamburger",
-    url: "https://picsum.photos/700"
-  },
-  {
-    id: "8",
-    name: "hamburger",
-    url: "https://picsum.photos/700"
-  },
-  {
-    id: "9",
-    name: "hamburger",
-    url: "https://picsum.photos/700"
-  },
-  {
-    id: "10",
-    name: "hamb",
-    url: "https://picsum.photos/700"
-  },
-  {
-    id: "11",
-    name: "hamburger fhgg",
-    url: "https://picsum.photos/700"
-  },
-  {
-    id: "12",
-    name: "hamburger hg",
-    url: "https://picsum.photos/700"
-  },
-  {
-    id: "13",
-    name: "hamburger",
-    url: "https://picsum.photos/700"
-  },
-];
+const ProductList = () => {
+  const { selectedCategory } = useContext(ProductContext);
+  const [products, setProducts] = useState(
+    [] as {
+      price: string;
+      strMeal: string;
+      strMealThumb: string;
+      idMeal: string;
+    }[]
+  );
 
-const ProductList = () => (
-  <FlatList
-    contentContainerStyle={{ marginBottom: 20 }}
-    columnWrapperStyle={{ margin: 5 }}
-    data={categories}
-    keyExtractor={(item) => item.id}
-    renderItem={({ item, index }) => <ProductCard item={item} index={index} />}
-    numColumns={2}
-  />
-);
+  const getProducts = async () => {
+    try {
+      const response = await fetchData({
+        url: `/list-meals/${selectedCategory}`,
+        method: "get",
+      });
+      setProducts(response);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedCategory) getProducts();
+  }, [selectedCategory]);
+
+  return (
+    <FlatList
+      contentContainerStyle={{ marginBottom: 20 }}
+      columnWrapperStyle={{ margin: 5 }}
+      data={products}
+      keyExtractor={(item) => item.idMeal}
+      renderItem={({ item }) => <ProductCard {...item} />}
+      numColumns={2}
+    />
+  );
+};
 
 export default ProductList;

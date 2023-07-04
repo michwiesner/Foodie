@@ -1,44 +1,35 @@
 import { View, Text, FlatList } from "react-native";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Chip } from "react-native-paper";
 import { customTheme } from "../utils/theme";
-
-const categories = [
-  {
-    id: "1",
-    name: "hamburger",
-  },
-  {
-    id: "2",
-    name: "pasta",
-  },
-  {
-    id: "3",
-    name: "pizza",
-  },
-  {
-    id: "4",
-    name: "seafood",
-  },
-  {
-    id: "5",
-    name: "hamburger",
-  },
-  {
-    id: "6",
-    name: "hamburger",
-  },
-  {
-    id: "7",
-    name: "hamburger",
-  },
-  {
-    id: "8",
-    name: "hamburger",
-  },
-];
+import { ProductContext } from "../context/productContext";
+import { fetchData } from "../helper/dataProvider";
+import { useState } from "react";
 
 const CategoriesList = () => {
+  const { selectedCategory, setSelectedCategory } = useContext(ProductContext);
+  const [categories, setCategories] = useState([] as { strCategory: string }[]);
+
+  const getCategories = async () => {
+    try {
+      const response = await fetchData({
+        url: "/all-categories",
+        method: "get",
+      });
+      setCategories(response);
+      setSelectedCategory(response[0].strCategory);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
+
+  const handleChangeCategory = (category: string) =>
+    setSelectedCategory(category);
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
   return (
     <View style={{ margin: 10 }}>
       <Text
@@ -53,14 +44,19 @@ const CategoriesList = () => {
       </Text>
       <FlatList
         data={categories}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
+        keyExtractor={({ strCategory }) => strCategory}
+        renderItem={({ item: { strCategory } }) => (
           <Chip
             style={{ margin: 10 }}
             mode="outlined"
-            onPress={() => console.log("Pressed")}
+            selectedColor={
+              strCategory === selectedCategory
+                ? customTheme.colors.primary
+                : "black"
+            }
+            onPress={() => handleChangeCategory(strCategory)}
           >
-            {item.name}
+            {strCategory}
           </Chip>
         )}
         horizontal

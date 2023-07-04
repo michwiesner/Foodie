@@ -1,9 +1,13 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { customTheme } from "../utils/theme";
 import ProductCount from "./ProductCount";
+import { ProductContext } from "../context/productContext";
 
-const CardItem = ({ item }) => {
+const CardItem = ({ strMeal, idMeal, price, priceTotal, quantity }) => {
+  const { changeCart } = useContext(ProductContext);
+  const handleQuantityChange = (action: string) =>
+    changeCart({ idMeal, strMeal, price, action });
   return (
     <View
       style={{
@@ -23,10 +27,7 @@ const CardItem = ({ item }) => {
             color: customTheme.colors.textDark,
           }}
         >
-          {item.name}
-        </Text>
-        <Text style={{ fontSize: 16, color: customTheme.colors.textDark }}>
-          {item.description}
+          {strMeal}
         </Text>
       </View>
       <View
@@ -43,12 +44,15 @@ const CardItem = ({ item }) => {
             fontSize: 20,
             alignItems: "center",
             marginRight: 20,
-            marginBottom: 5
+            marginBottom: 5,
           }}
         >
-          ${item.price}
+          ${priceTotal}
         </Text>
-        <ProductCount />
+        <ProductCount
+          quantity={quantity}
+          handleQuantityChange={handleQuantityChange}
+        />
       </View>
     </View>
   );
