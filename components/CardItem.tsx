@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import React, { useContext } from "react";
 import { customTheme } from "../utils/theme";
 import ProductCount from "./ProductCount";
-import { ProductContext } from "../context/productContext";
+import { ProductContext } from "../context/ProductContext";
 
 const CardItem = ({ strMeal, idMeal, price, priceTotal, quantity }) => {
   const { changeCart } = useContext(ProductContext);

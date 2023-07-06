@@ -1,5 +1,5 @@
 import axios from "axios";
-const BACK_URL = "http://192.168.0.3:3000";
+import {REACT_APP_BACKEND_URL} from "@env";
 
 type TMethods = "post" | "get" | "put" | "patch" | "delete";
 
@@ -11,10 +11,10 @@ interface IAxiosProps {
 
 export const fetchData = async ({ url, method, body }: IAxiosProps) => {
   const axiosClient = axios.create({
-    baseURL: BACK_URL,
+    baseURL: REACT_APP_BACKEND_URL,
     headers: {
-      "Content-Type": "multipart/form-data",
-      Accept: "application/json",
+      "Access-Control-Allow-Origin": true,
+      "Access-Control-Allow-Headers": "Content-Type",
     },
   });
 

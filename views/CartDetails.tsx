@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { View, Text } from "react-native";
 import CardItemList from "../components/CardItemList";
 import { Button } from "react-native-paper";
-import { ProductContext } from "../context/productContext";
+import { ProductContext } from "../context/ProductContext";
 
 const CartDetails = ({ navigation }) => {
   const { cart } = useContext(ProductContext);

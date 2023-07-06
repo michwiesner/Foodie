@@ -7,6 +7,17 @@ const ProductProvider = ({ children }: any) => {
     products: any[];
     total: number;
   });
+  const [customer, setCustomer] = useState(
+    {} as {
+      name: string;
+      email: string;
+      address?: string;
+      extendedAddress?: string;
+      city?: string;
+      state?: string;
+      zipCode?: string;
+    }
+  );
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const changeCart = ({ idMeal, strMeal, price, action }: any) => {
@@ -14,7 +25,7 @@ const ProductProvider = ({ children }: any) => {
     const mealIndex = cartCopy.products.findIndex(
       ({ idMeal: idCart }) => idCart === idMeal
     );
-  
+
     if (mealIndex >= 0) {
       const { quantity: productQuantity, priceTotal: totalProductPrice } =
         cartCopy.products[mealIndex];
@@ -51,9 +62,25 @@ const ProductProvider = ({ children }: any) => {
     }
   };
 
+  const clearCart = () =>
+    setCart(
+      {} as {
+        products: any[];
+        total: number;
+      }
+    );
+
   return (
     <ProductContext.Provider
-      value={{ cart, selectedCategory, setSelectedCategory, changeCart }}
+      value={{
+        cart,
+        selectedCategory,
+        customer,
+        setCustomer,
+        setSelectedCategory,
+        changeCart,
+        clearCart
+      }}
     >
       {children}
     </ProductContext.Provider>

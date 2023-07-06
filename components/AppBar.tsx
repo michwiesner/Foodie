@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Appbar, Badge } from "react-native-paper";
 import { customTheme } from "../utils/theme";
-import { ProductContext } from "../context/productContext";
+import { ProductContext } from "../context/ProductContext";
 import { View } from "react-native";
 
 const AppBar = ({ navigation }) => {

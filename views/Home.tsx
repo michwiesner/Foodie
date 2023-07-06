@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import CategoriesList from "../components/CategoriesList";
 import ProductList from "../components/ProductList";
-import { ProductContext } from "../context/productContext";
+import { ProductContext } from "../context/ProductContext";
 import { Button } from "react-native-paper";
 
 const Home = ({ navigation: { navigate } }) => {

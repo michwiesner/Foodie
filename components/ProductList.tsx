@@ -1,7 +1,7 @@
 import { FlatList } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import ProductCard from "./ProductCard";
-import { ProductContext } from "../context/productContext";
+import { ProductContext } from "../context/ProductContext";
 import { fetchData } from "../helper/dataProvider";
 
 const ProductList = () => {
@@ -18,7 +18,7 @@ const ProductList = () => {
   const getProducts = async () => {
     try {
       const response = await fetchData({
-        url: `/list-meals/${selectedCategory}`,
+        url: `/products/list-meals/${selectedCategory}`,
         method: "get",
       });
       setProducts(response);

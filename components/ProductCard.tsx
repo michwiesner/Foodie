@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { View } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
-import { ProductContext } from "../context/productContext";
+import { ProductContext } from "../context/ProductContext";
 
 const ProductCard = ({ idMeal, price, strMeal, strMealThumb }) => {
   const { changeCart } = useContext(ProductContext);

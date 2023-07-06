@@ -2,7 +2,7 @@ import { View, Text, FlatList } from "react-native";
 import React, { useContext, useEffect } from "react";
 import { Chip } from "react-native-paper";
 import { customTheme } from "../utils/theme";
-import { ProductContext } from "../context/productContext";
+import { ProductContext } from "../context/ProductContext";
 import { fetchData } from "../helper/dataProvider";
 import { useState } from "react";
 
@@ -13,7 +13,7 @@ const CategoriesList = () => {
   const getCategories = async () => {
     try {
       const response = await fetchData({
-        url: "/all-categories",
+        url: "/products/all-categories",
         method: "get",
       });
       setCategories(response);
