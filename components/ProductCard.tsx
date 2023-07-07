@@ -17,20 +17,28 @@ const ProductCard = ({ idMeal, price, strMeal, strMealThumb }) => {
       <Card elevation={0}>
         <Card.Cover source={{ uri: strMealThumb }} />
         <Card.Content
-          style={{ height: 140, justifyContent: "space-between", padding: 10 }}
+          style={{
+            minHeight: 140,
+            justifyContent: "space-between",
+            padding: 10,
+          }}
         >
-          <Text variant="titleSmall">{strMeal}</Text>
-          <Text variant="titleMedium">${price}</Text>
-          <Button
-            mode="contained"
-            style={{ marginTop: 10 }}
-            labelStyle={{ color: customTheme.colors.textLight }}
-            onPress={() =>
-              changeCart({ idMeal, strMeal, price, action: "plus" })
-            }
-          >
-            Add to cart
-          </Button>
+          <Text variant="bodyMedium">{strMeal}</Text>
+          <View>
+            <Text variant="titleSmall" style={{ marginVertical: 4 }}>
+              ${price}
+            </Text>
+            <Button
+              mode="contained"
+              style={{ marginTop: 5 }}
+              labelStyle={{ color: customTheme.colors.textLight }}
+              onPress={() =>
+                changeCart({ idMeal, strMeal, price, action: "plus" })
+              }
+            >
+              Add to cart
+            </Button>
+          </View>
         </Card.Content>
       </Card>
     </View>
