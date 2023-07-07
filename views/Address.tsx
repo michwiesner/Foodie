@@ -36,7 +36,7 @@ const Address = ({ navigation: { navigate } }) => {
         <TextInput
           mode="outlined"
           style={{ backgroundColor: "white" }}
-          label="email"
+          label="Email"
           value={customer.email}
           onChangeText={(text) => handleChangeValue("email", text)}
           placeholder="johndoe@example.com"
@@ -86,6 +86,7 @@ const Address = ({ navigation: { navigate } }) => {
       <Button
         mode="contained"
         style={{ justifyContent: "flex-end", marginBottom: 20 }}
+        labelStyle={{ color: customTheme.colors.textLight, fontSize: 18 }}
         onPress={() => navigate("payment")}
       >
         Next

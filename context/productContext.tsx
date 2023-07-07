@@ -64,7 +64,7 @@ const ProductProvider = ({ children }: any) => {
 
   const clearCart = () =>
     setCart(
-      {} as {
+      { products: [], total: 0 } as {
         products: any[];
         total: number;
       }

@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { View } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
 import { ProductContext } from "../context/ProductContext";
+import { customTheme } from "../utils/theme";
 
 const ProductCard = ({ idMeal, price, strMeal, strMealThumb }) => {
   const { changeCart } = useContext(ProductContext);
@@ -23,6 +24,7 @@ const ProductCard = ({ idMeal, price, strMeal, strMealThumb }) => {
           <Button
             mode="contained"
             style={{ marginTop: 10 }}
+            labelStyle={{ color: customTheme.colors.textLight }}
             onPress={() =>
               changeCart({ idMeal, strMeal, price, action: "plus" })
             }

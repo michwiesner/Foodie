@@ -16,7 +16,7 @@ const AppBar = ({ navigation }) => {
       />
       <View>
         <Badge
-          visible={cart.products.length > 0}
+          visible={cart?.products.length > 0}
           style={{
             position: "absolute",
             top: 5,
@@ -26,7 +26,7 @@ const AppBar = ({ navigation }) => {
             zIndex: 1,
           }}
         >
-          {cart.products.length}
+          {cart?.products.length}
         </Badge>
         <Appbar.Action
           icon="cart"

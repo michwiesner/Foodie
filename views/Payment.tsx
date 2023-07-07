@@ -8,13 +8,14 @@ import {
 import { fetchData } from "../helper/dataProvider";
 import { ProductContext } from "../context/ProductContext";
 import { View } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { ActivityIndicator, Button, Text } from "react-native-paper";
 import { customTheme } from "../utils/theme";
 import { REACT_APP_STRIPE_PUBLIC_KEY } from "@env";
 
 const Payment = ({ navigation: { navigate } }) => {
   const { cart, customer, clearCart } = useContext(ProductContext);
   const [enableSubmit, setEnableSubmit] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const { confirmPayment } = useConfirmPayment();
 
   const createPaymentIntent = () =>
@@ -25,6 +26,7 @@ const Payment = ({ navigation: { navigate } }) => {
     });
 
   const makePayment = async () => {
+    setSubmitting(true);
     const billingDetails: BillingDetails = {
       email: customer.email,
       name: customer.name,
@@ -41,7 +43,7 @@ const Payment = ({ navigation: { navigate } }) => {
       "payment-message",
       error
         ? {
-            type: "error",
+            type: "failure",
             message: error.localizedMessage,
             name: billingDetails.name,
           }
@@ -55,6 +57,7 @@ const Payment = ({ navigation: { navigate } }) => {
 
   useEffect(() => {
     initializeStripe();
+    return () => setSubmitting(false);
   }, []);
 
   return (
@@ -91,14 +94,29 @@ const Payment = ({ navigation: { navigate } }) => {
         />
       </View>
 
-      <Button
-        style={{ justifyContent: "flex-end", marginBottom: 20 }}
-        mode="contained"
-        disabled={!enableSubmit}
-        onPress={() => makePayment()}
-      >
-        Place order
-      </Button>
+      <View>
+        {submitting && (
+          <ActivityIndicator
+            animating={true}
+            size="large"
+            color={customTheme.colors.primary}
+          />
+        )}
+        <Button
+          style={{ justifyContent: "flex-end", marginVertical: 30 }}
+          labelStyle={{
+            color: enableSubmit
+              ? customTheme.colors.textLight
+              : customTheme.colors.textDark,
+            fontSize: 18,
+          }}
+          mode="contained"
+          disabled={!enableSubmit || submitting}
+          onPress={() => makePayment()}
+        >
+          Place order
+        </Button>
+      </View>
     </View>
   );
 };
